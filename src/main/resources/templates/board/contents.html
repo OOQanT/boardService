@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container2 {
+        max-width: 560px;
+        margin: auto;
+        }
+        .field-error {
+        border-color: #dc3545;
+        color: #dc3545;
+        }
+    </style>
+</head>
+    <body>
+        <div th:replace="layout/top::header"></div>
+        <div class="container2">
+            <div class="py-5 text-center">
+                <h2>글목록</h2>
+            </div>
+            <button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/board}'|"  >글쓰기</button>
+            <hr/>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>글번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>날짜</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="content : ${contents}">
+                    <td><a th:text="${content.contentId}" th:href="@{contents/{contentId}(contentId = ${content.contentId})}"> </a></td>
+                    <td><a th:text="${content.title}" th:href="@{contents/{contentId}(contentId = ${content.contentId})}"> </a></td>
+                    <td th:text="${content.author}"></td>
+                    <td th:text="${#temporals.format(content.createTime,'yyyy-MM-dd HH:mm')}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </body>
+</html>
